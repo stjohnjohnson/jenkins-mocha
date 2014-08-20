@@ -3,7 +3,7 @@
   "version": "1.0.1",
   "description": "Bin wrapper for Mocha + Istanbul + Xunit (for Jenkins)",
   "bin": {
-    "jenkins-mocha": "index.js"
+    "jenkins-mocha": "./bin/jenkins.js"
   },
   "scripts": {
     "test": "node bin/jenkins.js"
