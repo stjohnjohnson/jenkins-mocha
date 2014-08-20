@@ -39,7 +39,7 @@ describe('Jenkins Mocha Test Case', function () {
     describe('jenkins', function () {
         it('should run the right functions', function () {
             // Run
-            require('../bin/jenkins');
+            require('../lib/jenkins')(['--foo', 'tests/*']);
 
             // Check mkdirs
             A.equalObject(mocks.mkdir.args[0], ['-p', path.join(process.cwd(), 'artifacts')], 'artifact dir was created');
@@ -57,7 +57,7 @@ describe('Jenkins Mocha Test Case', function () {
                 ' cover --dir ' +
                 path.join(process.cwd(), 'artifacts', 'coverage') +
                 ' -- ' + path.join(__dirname, '..', 'node_modules', '.bin', '_mocha') +
-                ' --reporter spec-xunit-file'
+                ' --reporter spec-xunit-file --foo tests/*'
             ], 'mocha was called correctly');
         });
     });

@@ -6,7 +6,7 @@
     "jenkins-mocha": "./bin/jenkins.js"
   },
   "scripts": {
-    "test": "node bin/jenkins.js"
+    "test": "./bin/jenkins.js"
   },
   "keywords": [
     "mocha",
