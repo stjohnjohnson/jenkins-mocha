@@ -1,0 +1,32 @@
+{
+  "name": "jenkins-mocha",
+  "version": "1.0.0",
+  "description": "Bin wrapper for Mocha + Istanbul + Xunit (for Jenkins)",
+  "bin": {
+    "jenkins-mocha": "index.js"
+  },
+  "scripts": {
+    "test": "node bin/jenkins.js"
+  },
+  "keywords": [
+    "mocha",
+    "istanbul",
+    "jenkins",
+    "xunit",
+    "junit",
+    "test"
+  ],
+  "author": "St. John Johnson <st.john.johnson@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "istanbul": "^0.3.0",
+    "mocha": "^1.21.4",
+    "shelljs": "^0.3.0",
+    "spec-xunit-file": "0.0.1-1"
+  },
+  "devDependencies": {
+    "chai": "^1.9.1",
+    "mockery": "^1.4.0",
+    "sinon": "^1.10.3"
+  }
+}
