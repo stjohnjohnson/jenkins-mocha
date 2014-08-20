@@ -53,11 +53,9 @@ describe('Jenkins Mocha Test Case', function () {
 
             // Check exec
             A.equalObject(mocks.exec.args[0], [
-                path.join(__dirname, '..', 'node_modules', '.bin', 'istanbul') +
-                ' cover --dir ' +
+                'istanbul cover --dir ' +
                 path.join(process.cwd(), 'artifacts', 'coverage') +
-                ' -- ' + path.join(__dirname, '..', 'node_modules', '.bin', '_mocha') +
-                ' --reporter spec-xunit-file --foo tests/*'
+                ' -- _mocha --reporter spec-xunit-file --foo tests/*'
             ], 'mocha was called correctly');
         });
     });
