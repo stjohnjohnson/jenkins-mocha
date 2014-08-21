@@ -6,6 +6,7 @@ var A = require('chai').assert,
     mocks = {
         mkdir: sinon.stub(),
         exec: sinon.stub(),
+        exit: sinon.stub(),
         config: {},
         env: {}
     };
@@ -39,6 +40,10 @@ describe('Jenkins Mocha Test Case', function () {
     describe('jenkins', function () {
         it('should run the right functions', function () {
             var baseDir = path.join(__dirname, '..', 'node_modules', '.bin');
+
+            mocks.exec.returns({
+                code: 0
+            });
 
             // Run
             require('../lib/jenkins')(['--foo', 'tests/*']);
