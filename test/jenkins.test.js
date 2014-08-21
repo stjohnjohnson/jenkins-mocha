@@ -38,6 +38,8 @@ describe('Jenkins Mocha Test Case', function () {
 
     describe('jenkins', function () {
         it('should run the right functions', function () {
+            var baseDir = path.join(__dirname, '..', 'node_modules', '.bin');
+
             // Run
             require('../lib/jenkins')(['--foo', 'tests/*']);
 
@@ -53,9 +55,9 @@ describe('Jenkins Mocha Test Case', function () {
 
             // Check exec
             A.equalObject(mocks.exec.args[0], [
-                'istanbul cover --dir ' +
+                path.join(baseDir, 'istanbul') + ' cover --dir ' +
                 path.join(process.cwd(), 'artifacts', 'coverage') +
-                ' -- _mocha --reporter spec-xunit-file --foo tests/*'
+                ' -- ' + path.join(baseDir, '_mocha') + ' --reporter spec-xunit-file --foo tests/*'
             ], 'mocha was called correctly');
         });
     });
