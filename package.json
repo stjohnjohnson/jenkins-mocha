@@ -1,6 +1,6 @@
 {
   "name": "jenkins-mocha",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Bin wrapper for Mocha + Istanbul + Xunit (for Jenkins)",
   "bin": {
     "jenkins-mocha": "./bin/jenkins.js"
