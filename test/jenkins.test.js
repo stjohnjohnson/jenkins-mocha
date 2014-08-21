@@ -51,11 +51,11 @@ describe('Jenkins Mocha Test Case', function () {
             // Check mkdirs
             A.equalObject(mocks.mkdir.args[0], ['-p', path.join(process.cwd(), 'artifacts')], 'artifact dir was created');
             A.equalObject(mocks.mkdir.args[1], ['-p', path.join(process.cwd(), 'artifacts', 'coverage')], 'coverage dir was created');
-            A.equalObject(mocks.mkdir.args[2], ['-p', path.join(process.cwd(), 'artifacts', 'tests')], 'tests dir was created');
+            A.equalObject(mocks.mkdir.args[2], ['-p', path.join(process.cwd(), 'artifacts', 'test')], 'tests dir was created');
 
             // Check environment
             A.equalObject(mocks.env, {
-                XUNIT_FILE: path.join(process.cwd(), 'artifacts', 'tests', 'xunit.xml')
+                XUNIT_FILE: path.join(process.cwd(), 'artifacts', 'test', 'xunit.xml')
             }, 'xunit file was set');
 
             // Check exec
