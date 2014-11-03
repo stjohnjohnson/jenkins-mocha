@@ -17,6 +17,11 @@
     "test"
   ],
   "author": "St. John Johnson <st.john.johnson@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:stjohnjohnson/jenkins-mocha.git"
+  },
+  "bugs": "https://github.com/stjohnjohnson/jenkins-mocha/issues",
   "license": "MIT",
   "dependencies": {
     "istanbul": "^0.3.0",
