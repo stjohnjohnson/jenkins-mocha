@@ -1,3 +1,5 @@
+'use strict';
+
 /*global describe, it, beforeEach, afterEach */
 var A = require('chai').assert,
     mockery = require('mockery'),
@@ -9,7 +11,10 @@ var A = require('chai').assert,
         exit: sinon.stub(),
         config: {},
         env: {}
-    };
+    },
+    node_modules = path.join(__dirname, '..', 'node_modules'),
+    istanbulPath = path.join(node_modules, '.bin', 'istanbul'),
+    mochaPath = path.join(node_modules, 'mocha', 'bin', '_mocha');
 
 A.equalObject = function (a, b, message) {
     A.equal(JSON.stringify(a, null, 4), JSON.stringify(b, null, 4), message);
@@ -39,8 +44,6 @@ describe('Jenkins Mocha Test Case', function () {
 
     describe('jenkins', function () {
         it('should run the right functions', function () {
-            var baseDir = path.join(__dirname, '..', 'node_modules', '.bin');
-
             mocks.exec.returns({
                 code: 0
             });
@@ -60,15 +63,13 @@ describe('Jenkins Mocha Test Case', function () {
 
             // Check exec
             A.equalObject(mocks.exec.args[0], [
-                path.join(baseDir, 'istanbul') + ' cover --dir ' +
+                istanbulPath + ' cover --dir ' +
                 path.join(process.cwd(), 'artifacts', 'coverage') +
-                ' -- ' + path.join(baseDir, '_mocha') + ' --reporter spec-xunit-file --colors --foo tests/*'
+                ' -- ' + mochaPath + ' --reporter spec-xunit-file --colors --foo tests/*'
             ], 'mocha was called correctly');
         });
 
         it('should support a --no-colors options', function () {
-            var baseDir = path.join(__dirname, '..', 'node_modules', '.bin');
-
             mocks.exec.returns({
                 code: 0
             });
@@ -88,9 +89,9 @@ describe('Jenkins Mocha Test Case', function () {
 
             // Check exec
             A.equalObject(mocks.exec.args[0], [
-                path.join(baseDir, 'istanbul') + ' cover --dir ' +
+                istanbulPath + ' cover --dir ' +
                 path.join(process.cwd(), 'artifacts', 'coverage') +
-                ' -- ' + path.join(baseDir, '_mocha') + ' --reporter spec-xunit-file --foo tests/* --no-colors'
+                ' -- ' + mochaPath + ' --reporter spec-xunit-file --foo tests/* --no-colors'
             ], 'mocha was called correctly');
         });
     });
