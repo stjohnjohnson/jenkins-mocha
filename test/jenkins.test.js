@@ -1,6 +1,6 @@
 'use strict';
 
-/*global describe, it, beforeEach, afterEach */
+/*global __dirname, process, require, describe, it, beforeEach, afterEach */
 var A = require('chai').assert,
     mockery = require('mockery'),
     sinon = require('sinon'),
@@ -14,7 +14,8 @@ var A = require('chai').assert,
     },
     node_modules = path.join(__dirname, '..', 'node_modules'),
     istanbulPath = path.join(node_modules, '.bin', 'istanbul'),
-    mochaPath = path.join(node_modules, 'mocha', 'bin', '_mocha');
+    specXunitPath = path.join(node_modules, 'spec-xunit-file'),
+    mochaPath = path.join(node_modules, '.bin', '_mocha');
 
 A.equalObject = function (a, b, message) {
     A.equal(JSON.stringify(a, null, 4), JSON.stringify(b, null, 4), message);
@@ -65,7 +66,7 @@ describe('Jenkins Mocha Test Case', function () {
             A.equalObject(mocks.exec.args[0], [
                 istanbulPath + ' cover --dir ' +
                 path.join(process.cwd(), 'artifacts', 'coverage') +
-                ' -- ' + mochaPath + ' --reporter spec-xunit-file --colors --foo tests/*'
+                ' -- ' + mochaPath + ' --reporter ' + specXunitPath + ' --colors --foo tests/*'
             ], 'mocha was called correctly');
         });
 
@@ -91,7 +92,7 @@ describe('Jenkins Mocha Test Case', function () {
             A.equalObject(mocks.exec.args[0], [
                 istanbulPath + ' cover --dir ' +
                 path.join(process.cwd(), 'artifacts', 'coverage') +
-                ' -- ' + mochaPath + ' --reporter spec-xunit-file --foo tests/* --no-colors'
+                ' -- ' + mochaPath + ' --reporter ' + specXunitPath + ' --foo tests/* --no-colors'
             ], 'mocha was called correctly');
         });
     });
