@@ -53,7 +53,7 @@ Default values are:
 
 ## Restrictions
 
-jenkins-mocha *cannot work* if your package brings in mocha, istanbul, or spec-xunit-file.  This is due to the relative path resolution of mocha/istanbul executables and mocha reporters.
+jenkins-mocha *cannot work* if your package brings in spec-xunit-file or mocha and istanbul are included greater than two packages below jenkins-mocha.  This is due to the relative path resolution of mocha/istanbul executables and mocha reporters.
 
 ## License
 

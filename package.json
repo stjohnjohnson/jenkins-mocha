@@ -26,6 +26,7 @@
   "dependencies": {
     "istanbul": "^0.3.0",
     "mocha": "^2.1.0",
+    "npm-which": "^2.0.0",
     "shelljs": "^0.3.0",
     "spec-xunit-file": "0.0.1-3"
   },
