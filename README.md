@@ -40,7 +40,17 @@ jenkins-mocha should replace your mocha command in npm test
 }
 ```
 
-Any parameters added to the command will be passed directly to mocha.
+If you want to turn off coverage reporting and just run unit tests with mocha, you need to pass a `--no-coverage` option to the command
+
+```json
+{
+    "scripts": {
+        "devtest": "jenkins-mocha --no-coverage test/*"
+    }
+}
+```
+
+Any other parameters added to the command will be passed directly to mocha.
 
 When npm-test is invoked, the module will:
  - Create XUnit test results in `$(TEST_DIR)`
