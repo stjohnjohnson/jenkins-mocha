@@ -15,7 +15,8 @@ var A = require('chai').assert,
     node_modules = path.join(__dirname, '..', 'node_modules'),
     istanbulPath = path.join(node_modules, '.bin', 'istanbul'),
     specXunitPath = path.join(node_modules, 'spec-xunit-file'),
-    mochaPath = path.join(node_modules, '.bin', '_mocha');
+    mochaPath = path.join(node_modules, '.bin', 'mocha'),
+    _mochaPath = path.join(node_modules, '.bin', '_mocha');
 
 A.equalObject = function (a, b, message) {
     A.equal(JSON.stringify(a, null, 4), JSON.stringify(b, null, 4), message);
@@ -66,7 +67,7 @@ describe('Jenkins Mocha Test Case', function () {
             A.equalObject(mocks.exec.args[0], [
                 istanbulPath + ' cover --dir ' +
                 path.join(process.cwd(), 'artifacts', 'coverage') +
-                ' -- ' + mochaPath + ' --reporter ' + specXunitPath + ' --colors --foo tests/*'
+                ' -- ' + _mochaPath + ' --reporter ' + specXunitPath + ' --colors --foo tests/*'
             ], 'mocha was called correctly');
         });
 
@@ -92,7 +93,31 @@ describe('Jenkins Mocha Test Case', function () {
             A.equalObject(mocks.exec.args[0], [
                 istanbulPath + ' cover --dir ' +
                 path.join(process.cwd(), 'artifacts', 'coverage') +
-                ' -- ' + mochaPath + ' --reporter ' + specXunitPath + ' --foo tests/* --no-colors'
+                ' -- ' + _mochaPath + ' --reporter ' + specXunitPath + ' --foo tests/* --no-colors'
+            ], 'mocha was called correctly');
+        });
+
+        it('should support a --no-coverage option', function () {
+            mocks.exec.returns({
+                code: 0
+            });
+
+            // Run
+            require('../lib/jenkins')(['--foo', 'tests/*', '--no-coverage']);
+
+            // Check mkdirs
+            A.equalObject(mocks.mkdir.args[0], ['-p', path.join(process.cwd(), 'artifacts')], 'artifact dir was created');
+            A.equalObject(mocks.mkdir.args[1], ['-p', path.join(process.cwd(), 'artifacts', 'coverage')], 'coverage dir was not created');
+            A.equalObject(mocks.mkdir.args[2], ['-p', path.join(process.cwd(), 'artifacts', 'test')], 'tests dir was created');
+
+            // Check environment
+            A.equalObject(mocks.env, {
+                XUNIT_FILE: path.join(process.cwd(), 'artifacts', 'test', 'xunit.xml')
+            }, 'xunit file was set');
+
+            // Check exec
+            A.equalObject(mocks.exec.args[0], [
+                mochaPath + ' --reporter ' + specXunitPath + ' --colors --foo tests/*'
             ], 'mocha was called correctly');
         });
     });
