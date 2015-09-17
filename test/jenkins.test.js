@@ -14,7 +14,7 @@ var A = require('chai').assert,
     },
     node_modules = path.join(__dirname, '..', 'node_modules'),
     istanbulPath = path.join(node_modules, '.bin', 'istanbul'),
-    specXunitPath = path.join(node_modules, 'spec-xunit-file'),
+    specXunitPath = require.resolve('spec-xunit-file'),
     mochaPath = path.join(node_modules, '.bin', 'mocha'),
     _mochaPath = path.join(node_modules, '.bin', '_mocha');
 
