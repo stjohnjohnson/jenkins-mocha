@@ -141,7 +141,7 @@ describe('Jenkins Mocha Test Case', function () {
 
             // Check exec
             A.equalObject(mocks.exec.args[0], [
-                istanbulPath + ' --report cobertura cover --dir ' +
+                istanbulPath + ' cover --report cobertura --dir ' +
                 path.join(process.cwd(), 'artifacts', 'coverage') +
                 ' -- ' + _mochaPath + ' --reporter ' + specXunitPath + ' --colors --foo tests/*'
             ], 'mocha was called correctly');
