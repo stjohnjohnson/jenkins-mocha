@@ -40,7 +40,19 @@ jenkins-mocha should replace your mocha command in npm test
 }
 ```
 
-If you want to turn off coverage reporting and just run unit tests with mocha, you need to pass a `--no-coverage` option to the command
+With coverage on (the default), you can pass a `--cobertura` option to the command
+to have istanbul use the cobertura reporter
+  
+```json
+{
+    "scripts": {
+        "devtest": "jenkins-mocha --cobertura test/*"
+    }
+}
+```
+
+If you want to turn coverage reporting off entirely, and just run unit tests with mocha, 
+you need to pass a `--no-coverage` option to the command
 
 ```json
 {
