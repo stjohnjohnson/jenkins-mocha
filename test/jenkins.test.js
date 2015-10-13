@@ -53,9 +53,9 @@ describe('Jenkins Mocha Test Case', function () {
 
     function assertMkDirCallsAreReceived(){
         // Check mkdirs
-        A.equalObject(mocks.mkdir.args[0], ['-p', escape(path.join(process.cwd(), 'artifacts'))], 'artifact dir was created');
-        A.equalObject(mocks.mkdir.args[1], ['-p', escape(path.join(process.cwd(), 'artifacts', 'coverage'))], 'coverage dir was created');
-        A.equalObject(mocks.mkdir.args[2], ['-p', escape(path.join(process.cwd(), 'artifacts', 'test'))], 'tests dir was created');
+        A.equalObject(mocks.mkdir.args[0], ['-p', path.join(process.cwd(), 'artifacts')], 'artifact dir was created');
+        A.equalObject(mocks.mkdir.args[1], ['-p', path.join(process.cwd(), 'artifacts', 'coverage')], 'coverage dir was created');
+        A.equalObject(mocks.mkdir.args[2], ['-p', path.join(process.cwd(), 'artifacts', 'test')], 'tests dir was created');
     }
 
     describe('jenkins', function () {
