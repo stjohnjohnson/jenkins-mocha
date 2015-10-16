@@ -78,7 +78,7 @@ describe('Jenkins Mocha Test Case', function () {
             A.equalObject(mocks.exec.args[0], [
                 istanbulPath + ' cover --dir ' +
                 coverage +
-                ' -- ' + _mochaPath + ' --reporter ' + specXunitPath + ' --colors --foo tests/*'
+                ' -- ' + _mochaPath + ' --reporter ' + specXunitPath + ' --colors --foo \'tests/*\''
             ], 'mocha was called correctly');
         });
 
@@ -101,7 +101,7 @@ describe('Jenkins Mocha Test Case', function () {
             A.equalObject(mocks.exec.args[0], [
                 istanbulPath + ' cover --dir ' +
                 coverage +
-                ' -- ' + _mochaPath + ' --reporter ' + specXunitPath + ' --foo tests/* --no-colors'
+                ' -- ' + _mochaPath + ' --reporter ' + specXunitPath + ' --foo \'tests/*\' --no-colors'
             ], 'mocha was called correctly');
         });
 
@@ -122,7 +122,7 @@ describe('Jenkins Mocha Test Case', function () {
 
             // Check exec
             A.equalObject(mocks.exec.args[0], [
-                mochaPath + ' --reporter ' + specXunitPath + ' --colors --foo tests/*'
+                mochaPath + ' --reporter ' + specXunitPath + ' --colors --foo \'tests/*\''
             ], 'mocha was called correctly');
         });
 
@@ -145,7 +145,7 @@ describe('Jenkins Mocha Test Case', function () {
             A.equalObject(mocks.exec.args[0], [
                 istanbulPath + ' cover --report cobertura --dir ' +
                 coverage +
-                ' -- ' + _mochaPath + ' --reporter ' + specXunitPath + ' --colors --foo tests/*'
+                ' -- ' + _mochaPath + ' --reporter ' + specXunitPath + ' --colors --foo \'tests/*\''
             ], 'mocha was called correctly');
         });
     });
