@@ -5,6 +5,7 @@ var A = require('chai').assert,
     mockery = require('mockery'),
     sinon = require('sinon'),
     path = require('path'),
+    shellescape = require('shell-escape'),
     mocks = {
         mkdir: sinon.stub(),
         exec: sinon.stub(),
@@ -13,14 +14,20 @@ var A = require('chai').assert,
         env: {}
     },
     node_modules = path.join(__dirname, '..', 'node_modules'),
-    istanbulPath = path.join(node_modules, '.bin', 'istanbul'),
-    specXunitPath = require.resolve('spec-xunit-file'),
-    mochaPath = path.join(node_modules, '.bin', 'mocha'),
-    _mochaPath = path.join(node_modules, '.bin', '_mocha');
+    istanbulPath = escape(path.join(node_modules, '.bin', 'istanbul')),
+    specXunitPath = escape(require.resolve('spec-xunit-file')),
+    mochaPath = escape(path.join(node_modules, '.bin', 'mocha')),
+    _mochaPath = escape(path.join(node_modules, '.bin', '_mocha')),
+    coverage = escape(path.join(process.cwd(), 'artifacts', 'coverage'));
+
 
 A.equalObject = function (a, b, message) {
     A.equal(JSON.stringify(a, null, 4), JSON.stringify(b, null, 4), message);
 };
+
+function escape(directory){
+    return shellescape([directory]);
+}
 
 describe('Jenkins Mocha Test Case', function () {
     beforeEach(function () {
@@ -44,6 +51,13 @@ describe('Jenkins Mocha Test Case', function () {
         mockery.disable();
     });
 
+    function assertMkDirCallsAreReceived(){
+        // Check mkdirs
+        A.equalObject(mocks.mkdir.args[0], ['-p', path.join(process.cwd(), 'artifacts')], 'artifact dir was created');
+        A.equalObject(mocks.mkdir.args[1], ['-p', path.join(process.cwd(), 'artifacts', 'coverage')], 'coverage dir was created');
+        A.equalObject(mocks.mkdir.args[2], ['-p', path.join(process.cwd(), 'artifacts', 'test')], 'tests dir was created');
+    }
+
     describe('jenkins', function () {
         it('should run the right functions', function () {
             mocks.exec.returns({
@@ -53,10 +67,7 @@ describe('Jenkins Mocha Test Case', function () {
             // Run
             require('../lib/jenkins')(['--foo', 'tests/*']);
 
-            // Check mkdirs
-            A.equalObject(mocks.mkdir.args[0], ['-p', path.join(process.cwd(), 'artifacts')], 'artifact dir was created');
-            A.equalObject(mocks.mkdir.args[1], ['-p', path.join(process.cwd(), 'artifacts', 'coverage')], 'coverage dir was created');
-            A.equalObject(mocks.mkdir.args[2], ['-p', path.join(process.cwd(), 'artifacts', 'test')], 'tests dir was created');
+            assertMkDirCallsAreReceived();
 
             // Check environment
             A.equalObject(mocks.env, {
@@ -66,8 +77,8 @@ describe('Jenkins Mocha Test Case', function () {
             // Check exec
             A.equalObject(mocks.exec.args[0], [
                 istanbulPath + ' cover --dir ' +
-                path.join(process.cwd(), 'artifacts', 'coverage') +
-                ' -- ' + _mochaPath + ' --reporter ' + specXunitPath + ' --colors --foo tests/*'
+                coverage +
+                ' -- ' + _mochaPath + ' --reporter ' + specXunitPath + ' --colors --foo \'tests/*\''
             ], 'mocha was called correctly');
         });
 
@@ -79,10 +90,7 @@ describe('Jenkins Mocha Test Case', function () {
             // Run
             require('../lib/jenkins')(['--foo', 'tests/*', '--no-colors']);
 
-            // Check mkdirs
-            A.equalObject(mocks.mkdir.args[0], ['-p', path.join(process.cwd(), 'artifacts')], 'artifact dir was created');
-            A.equalObject(mocks.mkdir.args[1], ['-p', path.join(process.cwd(), 'artifacts', 'coverage')], 'coverage dir was created');
-            A.equalObject(mocks.mkdir.args[2], ['-p', path.join(process.cwd(), 'artifacts', 'test')], 'tests dir was created');
+            assertMkDirCallsAreReceived();
 
             // Check environment
             A.equalObject(mocks.env, {
@@ -92,8 +100,8 @@ describe('Jenkins Mocha Test Case', function () {
             // Check exec
             A.equalObject(mocks.exec.args[0], [
                 istanbulPath + ' cover --dir ' +
-                path.join(process.cwd(), 'artifacts', 'coverage') +
-                ' -- ' + _mochaPath + ' --reporter ' + specXunitPath + ' --foo tests/* --no-colors'
+                coverage +
+                ' -- ' + _mochaPath + ' --reporter ' + specXunitPath + ' --foo \'tests/*\' --no-colors'
             ], 'mocha was called correctly');
         });
 
@@ -105,10 +113,7 @@ describe('Jenkins Mocha Test Case', function () {
             // Run
             require('../lib/jenkins')(['--foo', 'tests/*', '--no-coverage']);
 
-            // Check mkdirs
-            A.equalObject(mocks.mkdir.args[0], ['-p', path.join(process.cwd(), 'artifacts')], 'artifact dir was created');
-            A.equalObject(mocks.mkdir.args[1], ['-p', path.join(process.cwd(), 'artifacts', 'coverage')], 'coverage dir was not created');
-            A.equalObject(mocks.mkdir.args[2], ['-p', path.join(process.cwd(), 'artifacts', 'test')], 'tests dir was created');
+            assertMkDirCallsAreReceived();
 
             // Check environment
             A.equalObject(mocks.env, {
@@ -117,7 +122,7 @@ describe('Jenkins Mocha Test Case', function () {
 
             // Check exec
             A.equalObject(mocks.exec.args[0], [
-                mochaPath + ' --reporter ' + specXunitPath + ' --colors --foo tests/*'
+                mochaPath + ' --reporter ' + specXunitPath + ' --colors --foo \'tests/*\''
             ], 'mocha was called correctly');
         });
 
@@ -129,10 +134,7 @@ describe('Jenkins Mocha Test Case', function () {
             // Run
             require('../lib/jenkins')(['--foo', 'tests/*', '--cobertura']);
 
-            // Check mkdirs
-            A.equalObject(mocks.mkdir.args[0], ['-p', path.join(process.cwd(), 'artifacts')], 'artifact dir was created');
-            A.equalObject(mocks.mkdir.args[1], ['-p', path.join(process.cwd(), 'artifacts', 'coverage')], 'coverage dir was created');
-            A.equalObject(mocks.mkdir.args[2], ['-p', path.join(process.cwd(), 'artifacts', 'test')], 'tests dir was created');
+            assertMkDirCallsAreReceived();
 
             // Check environment
             A.equalObject(mocks.env, {
@@ -142,8 +144,8 @@ describe('Jenkins Mocha Test Case', function () {
             // Check exec
             A.equalObject(mocks.exec.args[0], [
                 istanbulPath + ' cover --report cobertura --dir ' +
-                path.join(process.cwd(), 'artifacts', 'coverage') +
-                ' -- ' + _mochaPath + ' --reporter ' + specXunitPath + ' --colors --foo tests/*'
+                coverage +
+                ' -- ' + _mochaPath + ' --reporter ' + specXunitPath + ' --colors --foo \'tests/*\''
             ], 'mocha was called correctly');
         });
     });
