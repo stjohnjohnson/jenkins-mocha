@@ -64,6 +64,8 @@ you need to pass a `--no-coverage` option to the command
 
 Any other parameters added to the command will be passed directly to mocha.
 
+If you need to configure istanbul, you may create a .istanbul.yml configuration file. Run `istanbul help config` for details.
+
 When npm-test is invoked, the module will:
  - Create XUnit test results in `$(TEST_DIR)`
  - Create LCov coverage in `$(COVERAGE_DIR)` with a HTML report at `$(COVERAGE_DIR)\lcov-report`
