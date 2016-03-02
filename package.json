@@ -24,7 +24,7 @@
   "bugs": "https://github.com/stjohnjohnson/jenkins-mocha/issues",
   "license": "MIT",
   "dependencies": {
-    "istanbul": "^0.3.0",
+    "istanbul": "^0.4.0",
     "mocha": "^2.1.0",
     "npm-which": "^2.0.0",
     "shelljs": "^0.3.0",
@@ -32,7 +32,7 @@
     "shell-escape": "^0.2.0"
   },
   "devDependencies": {
-    "chai": "^1.9.1",
+    "chai": "^3.0.0",
     "mockery": "^1.4.0",
     "sinon": "^1.10.3"
   }
