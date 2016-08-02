@@ -1,4 +1,4 @@
-box: wercker/nodejs
+box: node:6
 # Build definition
 build:
   # The steps that will be executed on build
