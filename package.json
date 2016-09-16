@@ -33,7 +33,9 @@
   },
   "devDependencies": {
     "chai": "^3.0.0",
+    "coveralls": "^2.11.13",
     "mockery": "^1.4.0",
+    "npm-auto-version": "^1.0.0",
     "sinon": "^1.10.3"
   }
 }
