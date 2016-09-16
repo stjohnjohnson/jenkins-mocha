@@ -1,9 +1,5 @@
 #!/bin/bash -e
 
-if [ -z "$GIT_KEY" ] || [ -z "$NPM_TOKEN" ]; then
-  echo Skipping publish in Pull Request
-  exit 0
-fi
 
 GITHUB_FINGERPRINT=16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48
 
@@ -22,8 +18,14 @@ eval "$(ssh-agent -s)"
 echo Loading github key
 echo $GIT_KEY | sed -E 's/([^ ]{64}) /*\1*/g' | tr "*" "\n" | sed '/^$/d' > /tmp/git_key
 chmod 600 /tmp/git_key
+cat /tmp/git_key
 ssh-add /tmp/git_key
 rm /tmp/git_key
+
+if [ -z "$GIT_KEY" ] || [ -z "$NPM_TOKEN" ]; then
+  echo Skipping publish in Pull Request
+  exit 0
+fi
 
 echo Setting up secrets
 GIT_PATH=`git remote -v | grep push | sed 's/ (push)//' | cut -d'/' -f4-5`
