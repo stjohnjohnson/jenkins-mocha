@@ -2,7 +2,7 @@
 
 Single command to run your Mocha unit tests with both XUnit and LCov output (for Jenkins).
 
-[![wercker status](https://app.wercker.com/status/9dbbc768df19ca2d2c6a87a99dc67713/m "wercker status")](https://app.wercker.com/project/bykey/9dbbc768df19ca2d2c6a87a99dc67713)
+[![Coverage Status](https://coveralls.io/repos/github/stjohnjohnson/jenkins-mocha/badge.svg?branch=master)](https://coveralls.io/github/stjohnjohnson/jenkins-mocha?branch=master)
 
 ## Installation
 
@@ -42,7 +42,7 @@ jenkins-mocha should replace your mocha command in npm test
 
 With coverage on (the default), you can pass a `--cobertura` option to the command
 to have istanbul use the cobertura reporter
-  
+
 ```json
 {
     "scripts": {
@@ -51,7 +51,7 @@ to have istanbul use the cobertura reporter
 }
 ```
 
-If you want to turn coverage reporting off entirely, and just run unit tests with mocha, 
+If you want to turn coverage reporting off entirely, and just run unit tests with mocha,
 you need to pass a `--no-coverage` option to the command
 
 ```json

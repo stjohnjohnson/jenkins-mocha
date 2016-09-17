@@ -2,10 +2,11 @@ jobs:
     main:
         image: node:6
         steps:
+            - setup: git clone https://gist.github.com/3d2388b2a7ba658cdcdaffa8cd874e50.git ci
             - install: npm install
             - test: npm test
-            - coverage: ./ci/coverage
-            - publish: ./ci/publish
+            - coverage: ./ci/coverage.sh
+            - publish: ./ci/publish.sh
         secrets:
             # Publishing to NPM
             - NPM_TOKEN
