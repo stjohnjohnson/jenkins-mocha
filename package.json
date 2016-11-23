@@ -23,9 +23,11 @@
   },
   "bugs": "https://github.com/stjohnjohnson/jenkins-mocha/issues",
   "license": "MIT",
-  "dependencies": {
+  "peerDependencies": {
     "istanbul": "^0.4.0",
-    "mocha": "^3.0.0",
+    "mocha": "^3.0.0"
+  },
+  "dependencies": {
     "npm-which": "^3.0.0",
     "shelljs": "^0.7.3",
     "spec-xunit-file": "0.0.1-3",
