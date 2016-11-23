@@ -24,7 +24,7 @@
   "bugs": "https://github.com/stjohnjohnson/jenkins-mocha/issues",
   "license": "MIT",
   "peerDependencies": {
-    "istanbul": "^0.4.0",
+    "istanbul": ">0.4.0",
     "mocha": "^3.0.0"
   },
   "dependencies": {
