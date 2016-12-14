@@ -1,16 +1,26 @@
+workflow:
+    - publish
+
+shared:
+    image: node:6
+
 jobs:
     main:
-        image: node:6
         steps:
             - setup: git clone https://gist.github.com/3d2388b2a7ba658cdcdaffa8cd874e50.git ci
             - install: npm install
             - test: npm test
             - coverage: ./ci/coverage.sh
-            - publish: ./ci/publish.sh
+        secrets:
+            # Uploading coverage information to coveralls
+            - COVERALLS_REPO_TOKEN
+
+    publish:
+        steps:
+            - install: npm install semantic-release
+            - publish: npm run semantic-release
         secrets:
             # Publishing to NPM
             - NPM_TOKEN
-            # Pushing tags to Git
-            - GIT_KEY
-            # Uploading coverage information to coveralls
-            - COVERALLS_REPO_TOKEN
+            # Pushing releases to Git
+            - GH_TOKEN

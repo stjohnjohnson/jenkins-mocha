@@ -2,7 +2,7 @@
 
 Single command to run your Mocha unit tests with both XUnit and LCov output (for Jenkins).
 
-[![Coverage Status](https://coveralls.io/repos/github/stjohnjohnson/jenkins-mocha/badge.svg?branch=master)](https://coveralls.io/github/stjohnjohnson/jenkins-mocha?branch=master)
+[![Version][npm-image]][npm-url] [![Downloads][downloads-image]][npm-url] [![Build Status][status-image]][status-url] [![Open Issues][issues-image]][issues-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage][cov-image]][cov-url] [![Vulnerabilities][vul-image]][vul-url] ![License][license-image]
 
 ## Installation
 
@@ -41,7 +41,7 @@ jenkins-mocha should replace your mocha command in npm test
 ```
 
 With coverage on (the default), you can pass a `--cobertura` option to the command
-to have istanbul use the cobertura reporter
+to have nyc use the cobertura reporter
 
 ```json
 {
@@ -64,7 +64,7 @@ you need to pass a `--no-coverage` option to the command
 
 Any other parameters added to the command will be passed directly to mocha.
 
-If you need to configure istanbul, you may create a .istanbul.yml configuration file. Run `istanbul help config` for details.
+If you need to configure nyc, you may create a .nycrc configuration file. Run `nyc help config` for details.
 
 When npm-test is invoked, the module will:
  - Create XUnit test results in `$(TEST_DIR)`
@@ -75,10 +75,21 @@ Default values are:
  - `$(TEST_DIR) = ./$(ARTIFACTS_DIR)/test`
  - `$(COVERAGE_DIR) = ./$(ARTIFACTS_DIR)/coverage`
 
-## Restrictions
-
-jenkins-mocha *cannot work* if your package brings in spec-xunit-file or mocha and istanbul are included greater than two packages below jenkins-mocha.  This is due to the relative path resolution of mocha/istanbul executables and mocha reporters.
-
 ## License
 
 [MIT](http://opensource.org/licenses/MIT) © [St. John Johnson](http://stjohnjohnson.com)
+
+[downloads-image]: https://img.shields.io/npm/dm/jenkins-mocha.svg
+[license-image]: https://img.shields.io/npm/l/jenkins-mocha.svg
+[npm-image]: https://img.shields.io/npm/v/jenkins-mocha.svg
+[npm-url]: https://npmjs.org/package/jenkins-mocha
+[cov-image]: https://coveralls.io/repos/github/stjohnjohnson/jenkins-mocha/badge.svg?branch=master
+[cov-url]: https://coveralls.io/github/stjohnjohnson/jenkins-mocha?branch=master
+[status-image]: https://cd.screwdriver.cd/pipelines/645af0ac1b2ed3cf24d3819d94e9af1b9007dfe8/badge
+[status-url]: https://cd.screwdriver.cd/pipelines/645af0ac1b2ed3cf24d3819d94e9af1b9007dfe8
+[vul-image]: https://snyk.io/test/github/stjohnjohnson/jenkins-mocha.git/badge.svg
+[vul-url]: https://snyk.io/test/github/stjohnjohnson/jenkins-mocha.git
+[issues-image]: https://img.shields.io/github/issues/stjohnjohnson/jenkins-mocha.svg
+[issues-url]: https://github.com/stjohnjohnson/jenkins-mocha/issues
+[daviddm-image]: https://david-dm.org/stjohnjohnson/jenkins-mocha.svg?theme=shields.io
+[daviddm-url]: https://david-dm.org/stjohnjohnson/jenkins-mocha
