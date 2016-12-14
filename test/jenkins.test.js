@@ -14,7 +14,7 @@ var A = require('chai').assert,
         env: {}
     },
     node_modules = path.join(__dirname, '..', 'node_modules'),
-    istanbulPath = escape(path.join(node_modules, '.bin', 'istanbul')),
+    nycPath = escape(path.join(node_modules, '.bin', 'nyc')),
     specXunitPath = escape(require.resolve('spec-xunit-file')),
     mochaPath = escape(path.join(node_modules, '.bin', 'mocha')),
     _mochaPath = escape(path.join(node_modules, '.bin', '_mocha')),
@@ -30,6 +30,9 @@ function escape(directory){
 }
 
 describe('Jenkins Mocha Test Case', function () {
+    // Bump timeout to 5 seconds
+    this.timeout(5000);
+
     beforeEach(function () {
         Object.keys(mocks).forEach(function (key) {
             if (typeof mocks[key] === 'function') {
@@ -76,7 +79,7 @@ describe('Jenkins Mocha Test Case', function () {
 
             // Check exec
             A.equalObject(mocks.exec.args[0], [
-                istanbulPath + ' cover --dir ' +
+                nycPath + ' --reporter lcov --report-dir ' +
                 coverage +
                 ' -- ' + _mochaPath + ' --reporter ' + specXunitPath + ' --colors --foo \'tests/*\''
             ], 'mocha was called correctly');
@@ -99,7 +102,7 @@ describe('Jenkins Mocha Test Case', function () {
 
             // Check exec
             A.equalObject(mocks.exec.args[0], [
-                istanbulPath + ' cover --dir ' +
+                nycPath + ' --reporter lcov --report-dir ' +
                 coverage +
                 ' -- ' + _mochaPath + ' --reporter ' + specXunitPath + ' --foo \'tests/*\' --no-colors'
             ], 'mocha was called correctly');
@@ -143,7 +146,7 @@ describe('Jenkins Mocha Test Case', function () {
 
             // Check exec
             A.equalObject(mocks.exec.args[0], [
-                istanbulPath + ' cover --report cobertura --dir ' +
+                nycPath + ' --reporter cobertura --report-dir ' +
                 coverage +
                 ' -- ' + _mochaPath + ' --reporter ' + specXunitPath + ' --colors --foo \'tests/*\''
             ], 'mocha was called correctly');
