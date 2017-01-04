@@ -66,6 +66,16 @@ Any other parameters added to the command will be passed directly to mocha.
 
 If you need to configure nyc, you may create a .nycrc configuration file. Run `nyc help config` for details.
 
+If you want to configure how node is invoked (if you have a giant coverage file), you can set v8 arguments via `$(NODE_ARGS)`.
+
+``` json
+{
+    "scripts": {
+        "test": "NODE_ARGS='--max_old_space_size=4096' jenkins-mocha test/*"
+    }
+}
+```
+
 When npm-test is invoked, the module will:
  - Create XUnit test results in `$(TEST_DIR)`
  - Create LCov coverage in `$(COVERAGE_DIR)` with a HTML report at `$(COVERAGE_DIR)\lcov-report`

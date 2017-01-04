@@ -79,9 +79,9 @@ describe('Jenkins Mocha Test Case', function () {
 
             // Check exec
             A.equalObject(mocks.exec.args[0], [
-                nycPath + ' --reporter lcov --report-dir ' +
+                'node  ' + nycPath + ' --reporter lcov --report-dir ' +
                 coverage +
-                ' -- ' + _mochaPath + ' --reporter ' + specXunitPath + ' --colors --foo \'tests/*\''
+                ' -- node  ' + _mochaPath + ' --reporter ' + specXunitPath + ' --colors --foo \'tests/*\''
             ], 'mocha was called correctly');
         });
 
@@ -102,9 +102,9 @@ describe('Jenkins Mocha Test Case', function () {
 
             // Check exec
             A.equalObject(mocks.exec.args[0], [
-                nycPath + ' --reporter lcov --report-dir ' +
+                'node  ' + nycPath + ' --reporter lcov --report-dir ' +
                 coverage +
-                ' -- ' + _mochaPath + ' --reporter ' + specXunitPath + ' --foo \'tests/*\' --no-colors'
+                ' -- node  ' + _mochaPath + ' --reporter ' + specXunitPath + ' --foo \'tests/*\' --no-colors'
             ], 'mocha was called correctly');
         });
 
@@ -125,7 +125,7 @@ describe('Jenkins Mocha Test Case', function () {
 
             // Check exec
             A.equalObject(mocks.exec.args[0], [
-                mochaPath + ' --reporter ' + specXunitPath + ' --colors --foo \'tests/*\''
+                'node  ' + mochaPath + ' --reporter ' + specXunitPath + ' --colors --foo \'tests/*\''
             ], 'mocha was called correctly');
         });
 
@@ -146,9 +146,34 @@ describe('Jenkins Mocha Test Case', function () {
 
             // Check exec
             A.equalObject(mocks.exec.args[0], [
-                nycPath + ' --reporter cobertura --report-dir ' +
+                'node  ' + nycPath + ' --reporter cobertura --report-dir ' +
                 coverage +
-                ' -- ' + _mochaPath + ' --reporter ' + specXunitPath + ' --colors --foo \'tests/*\''
+                ' -- node  ' + _mochaPath + ' --reporter ' + specXunitPath + ' --colors --foo \'tests/*\''
+            ], 'mocha was called correctly');
+        });
+
+        it('should support passing Node args', function () {
+            mocks.exec.returns({
+                code: 0
+            });
+            mocks.env.NODE_ARGS = '--flop=blop';
+
+            // Run
+            require('../lib/jenkins')(['--foo', 'tests/*', '--no-colors']);
+
+            assertMkDirCallsAreReceived();
+
+            // Check environment
+            A.equalObject(mocks.env, {
+                NODE_ARGS: '--flop=blop',
+                XUNIT_FILE: path.join(process.cwd(), 'artifacts', 'test', 'xunit.xml')
+            }, 'xunit file was set');
+
+            // Check exec
+            A.equalObject(mocks.exec.args[0], [
+                'node --flop=blop ' + nycPath + ' --reporter lcov --report-dir ' +
+                coverage +
+                ' -- node --flop=blop ' + _mochaPath + ' --reporter ' + specXunitPath + ' --foo \'tests/*\' --no-colors'
             ], 'mocha was called correctly');
         });
     });
