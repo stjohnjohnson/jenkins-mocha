@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "chai": "^3.0.0",
-    "coveralls": "^2.11.13",
+    "coveralls": "^2.11.15",
     "mockery": "^2.0.0",
     "sinon": "^1.10.3"
   },

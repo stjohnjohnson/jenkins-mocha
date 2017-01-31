@@ -95,8 +95,8 @@ Default values are:
 [npm-url]: https://npmjs.org/package/jenkins-mocha
 [cov-image]: https://coveralls.io/repos/github/stjohnjohnson/jenkins-mocha/badge.svg?branch=master
 [cov-url]: https://coveralls.io/github/stjohnjohnson/jenkins-mocha?branch=master
-[status-image]: https://cd.screwdriver.cd/pipelines/645af0ac1b2ed3cf24d3819d94e9af1b9007dfe8/badge
-[status-url]: https://cd.screwdriver.cd/pipelines/645af0ac1b2ed3cf24d3819d94e9af1b9007dfe8
+[status-image]: https://cd.screwdriver.cd/pipelines/63/badge
+[status-url]: https://cd.screwdriver.cd/pipelines/63
 [vul-image]: https://snyk.io/test/github/stjohnjohnson/jenkins-mocha.git/badge.svg
 [vul-url]: https://snyk.io/test/github/stjohnjohnson/jenkins-mocha.git
 [issues-image]: https://img.shields.io/github/issues/stjohnjohnson/jenkins-mocha.svg
