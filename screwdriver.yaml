@@ -1,26 +1,28 @@
 workflow:
-    - publish
+  - publish
 
 shared:
-    image: node:6
+  image: node:6
 
 jobs:
-    main:
-        steps:
-            - setup: git clone https://gist.github.com/3d2388b2a7ba658cdcdaffa8cd874e50.git ci
-            - install: npm install
-            - test: npm test
-            - coverage: ./ci/coverage.sh
-        secrets:
-            # Uploading coverage information to coveralls
-            - COVERALLS_REPO_TOKEN
+  main:
+    steps:
+      - install: npm install
+      - test: npm test
+      - coverage: |
+          export CI_PULL_REQUEST=${SD_PULL_REQUEST}
+          export COVERALLS_SERVICE_NAME=screwdriver
+          cat ./artifacts/coverage/lcov.info | ./node_modules/.bin/coveralls
+    secrets:
+      # Uploading coverage information to coveralls
+      - COVERALLS_REPO_TOKEN
 
-    publish:
-        steps:
-            - install: npm install semantic-release
-            - publish: npm run semantic-release
-        secrets:
-            # Publishing to NPM
-            - NPM_TOKEN
-            # Pushing releases to Git
-            - GH_TOKEN
+  publish:
+    steps:
+      - install: npm install semantic-release
+      - publish: npm run semantic-release
+    secrets:
+      # Publishing to NPM
+      - NPM_TOKEN
+      # Pushing releases to Git
+      - GH_TOKEN
