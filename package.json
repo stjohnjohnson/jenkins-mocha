@@ -28,7 +28,7 @@
   "dependencies": {
     "mocha": "^4.0.0",
     "npm-which": "^3.0.0",
-    "nyc": "^11.0.0",
+    "nyc": "^13.3.0",
     "shell-escape": "^0.2.0",
     "shelljs": "^0.7.5",
     "spec-xunit-file": "0.0.1-3"
