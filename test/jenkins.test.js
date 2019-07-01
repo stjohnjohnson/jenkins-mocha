@@ -79,7 +79,7 @@ describe('Jenkins Mocha Test Case', function () {
 
             // Check exec
             A.equalObject(mocks.exec.args[0], [
-                'node  ' + nycPath + ' --reporter lcov --reporter text-summary --report-dir ' +
+                'node  ' + nycPath + ' --reporter lcov --reporter text-summary --cache=false --report-dir ' +
                 coverage +
                 ' -- node  ' + _mochaPath + ' --reporter ' + specXunitPath + ' --colors --foo \'tests/*\''
             ], 'mocha was called correctly');
@@ -102,7 +102,7 @@ describe('Jenkins Mocha Test Case', function () {
 
             // Check exec
             A.equalObject(mocks.exec.args[0], [
-                'node  ' + nycPath + ' --reporter lcov --reporter text-summary --report-dir ' +
+                'node  ' + nycPath + ' --reporter lcov --reporter text-summary --cache=false --report-dir ' +
                 coverage +
                 ' -- node  ' + _mochaPath + ' --reporter ' + specXunitPath + ' --foo \'tests/*\' --no-colors'
             ], 'mocha was called correctly');
@@ -146,7 +146,7 @@ describe('Jenkins Mocha Test Case', function () {
 
             // Check exec
             A.equalObject(mocks.exec.args[0], [
-                'node  ' + nycPath + ' --reporter cobertura --report-dir ' +
+                'node  ' + nycPath + ' --reporter cobertura --cache=false --report-dir ' +
                 coverage +
                 ' -- node  ' + _mochaPath + ' --reporter ' + specXunitPath + ' --colors --foo \'tests/*\''
             ], 'mocha was called correctly');
@@ -171,7 +171,7 @@ describe('Jenkins Mocha Test Case', function () {
 
             // Check exec
             A.equalObject(mocks.exec.args[0], [
-                'node --flop=blop ' + nycPath + ' --reporter lcov --reporter text-summary --report-dir ' +
+                'node --flop=blop ' + nycPath + ' --reporter lcov --reporter text-summary --cache=false --report-dir ' +
                 coverage +
                 ' -- node --flop=blop ' + _mochaPath + ' --reporter ' + specXunitPath + ' --foo \'tests/*\' --no-colors'
             ], 'mocha was called correctly');
