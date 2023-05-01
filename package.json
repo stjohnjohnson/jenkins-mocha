@@ -39,6 +39,9 @@
     "mockery": "^2.0.0",
     "sinon": "^7.0.0"
   },
+  "engines": {
+    "node": "12.x || 14.x || >= 16.x"
+  },
   "release": {
     "debug": false,
     "verifyConditions": {
