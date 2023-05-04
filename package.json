@@ -1,6 +1,6 @@
 {
   "name": "jenkins-mocha",
-  "version": "10.0.0",
+  "version": "11.0.0",
   "description": "Bin wrapper for Mocha + Nyc + Xunit (for Jenkins)",
   "bin": {
     "jenkins-mocha": "./bin/jenkins.js"
@@ -26,7 +26,7 @@
   "bugs": "https://github.com/stjohnjohnson/jenkins-mocha/issues",
   "license": "MIT",
   "dependencies": {
-    "mocha": "^9.2.2",
+    "mocha": "^10.2.0",
     "npm-which": "^3.0.0",
     "nyc": "^15.0.0",
     "shell-escape": "^0.2.0",
@@ -40,7 +40,7 @@
     "sinon": "^7.0.0"
   },
   "engines": {
-    "node": "12.x || 14.x || >= 16.x"
+    "node": "14.x || >= 16.x"
   },
   "release": {
     "debug": false,
